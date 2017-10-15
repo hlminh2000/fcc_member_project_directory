@@ -2,7 +2,7 @@ const express = require('express')
       knex = require('knex')(require('./ENV_CONFIG.json')['DB_CONFIG'])
       app = express()
 
-app.get('/', function (req, res) {
+app.get('/users', function (req, res) {
   knex
     .select()
     .from('users')
