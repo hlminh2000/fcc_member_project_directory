@@ -1,0 +1,21 @@
+{
+  "DB_CONFIG": {
+    "client": "mysql",
+    "connection": {
+      "host" : "127.0.0.1",
+      "user" : "YOUR_DATABASE_ACCOUNT",
+      "password" : "YOUR_DATABASE_PASSWORD",
+      "database" : "YOUR_DATABASE_SCHEMA"
+    }
+  },
+  "TUNNEL_CONFIG": {
+    "username" : "YOUR_SSH_ACCOUNT",
+    "Password" : "YOUR_SSH_PASSWORD",
+    "host" : "YOUR_HOST_SERVER",
+    "port" : "YOUR_SERVER_PORT",
+    "dstHost" : "YOUR_DESTINATION_HOST",
+    "dstPort" : "YOUR_DESTINATION_HOST_PORT",
+    "localHost" : "YOUR_LOCALHOST_IP",
+    "localPort" :  "YOUR_TARGET_LOCAL_PORT"
+  }
+}
