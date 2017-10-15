@@ -1,0 +1,21 @@
+{
+  "DB_CONFIG": {
+    "client": "mysql",
+    "connection": {
+      "host" : "127.0.0.1",
+      "user" : "minhbtze",
+      "password" : "Az0itis!",
+      "database" : "minhbtze_fcc_directory"
+    }
+  },
+  "TUNNEL_CONFIG": {
+    "username" : "minhbtze",
+    "Password" : "Az0itis!",
+    "host" : "server115.web-hosting.com",
+    "port" : 21098,
+    "dstHost" : "server115.web-hosting.com",
+    "dstPort" : 3306,
+    "localHost" : "127.0.0.1",
+    "localPort" :  3306
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "fcc_directory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db_tunnel": "sh scripts/db_tunnel.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "knex": "^0.13.0",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "tunnel-ssh": "^4.1.3"
+  }
+}
