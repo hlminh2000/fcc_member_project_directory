@@ -8,34 +8,9 @@ const {
 } = require('graphql')
 express = require('express')
 dbService = require('../db_service/index.js')
-// UserType = require('./models/user.js')
+UserType = require('./models/user.js')
 
-const UserType = new GraphQLObjectType({
-  name: 'User',
-  description: 'Information about a user',
-  fields: () => ({
-    id: {
-      type : GraphQLString,
-      args : {},
-      resolve : (user, args) => user[0].id
-    },
-    username: {
-      type : GraphQLString,
-      args : {},
-      resolve : (user, args) => user[0].username
-    },
-    email: {
-      type : GraphQLString,
-      args : {},
-      resolve : (user, args) => user[0].email
-    },
-    created_time: {
-      type : GraphQLString,
-      args : {},
-      resolve : (user, args) => user[0].created_time
-    }
-  }),
-})
+console.log(UserType);
 
 const UserInputType = {
   type: UserType,

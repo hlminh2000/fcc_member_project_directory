@@ -5,41 +5,31 @@ const {
   GraphQLString,
 } = require('graphql')
 
-const UserType = () => ({
-  type: new GraphQLObjectType({
-    name: 'user',
-    description: 'user informations',
-
-    fields: () => ({
-      username: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].username
-      },
-      email: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].email
-      },
-      created_time: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].created_time
-      },
-    }),
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  description: 'Information about a user',
+  fields: () => ({
+    id: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].id
+    },
+    username: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].username
+    },
+    email: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].email
+    },
+    created_time: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].created_time
+    }
   }),
-
-  args: {
-    id: { type: GraphQLString }
-  },
-
-  resolve: (root, args) => dbService
-    .select()
-    .from('users')
-    .where({
-      'user_id': args.id
-    })
 })
 
-
-// module.export = UserType
+module.exports = UserType
