@@ -2,48 +2,43 @@ const {
   graphql,
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
+  GraphQLInputObjectType,
+  GraphQLString,
+  buildSchema
 } = require('graphql')
 express = require('express')
 dbService = require('../db_service/index.js')
 // UserType = require('./models/user.js')
 
-
-const UserType = {
-  type: new GraphQLObjectType({
-    name: 'user',
-    description: 'user informations',
-    fields: () => ({
-      username: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].username
-      },
-      email: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].email
-      },
-      created_time: {
-        type : GraphQLString,
-        args : {},
-        resolve : (root, args) => root[0].created_time
-      }
-    }),
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  description: 'Information about a user',
+  fields: () => ({
+    id: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].id
+    },
+    username: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].username
+    },
+    email: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].email
+    },
+    created_time: {
+      type : GraphQLString,
+      args : {},
+      resolve : (user, args) => user[0].created_time
+    }
   }),
-  args: {
-    id: { type: GraphQLString }
-  },
-  resolve: (root, args) => dbService
-    .select()
-    .from('users')
-    .where({
-      'user_id': args.id
-    })
-}
+})
 
-const newUserType = {
-  type: GraphQLString,
+const UserInputType = {
+  type: UserType,
   description: 'Adds a new user and returns the user that was added',
   args: {
     id:       { type: GraphQLString },
@@ -63,11 +58,6 @@ const newUserType = {
       .where({
         'user_id': args.id
       })
-      .then(result => {
-        return new Promise(function(resolve, reject) {
-          resolve(JSON.stringify(result[0]))
-        })
-      })
     )
 }
 
@@ -76,14 +66,25 @@ const ApiRoot = new GraphQLSchema({
     name: 'ApiRoot',
     description: 'The root graphql query',
     fields: () => ({
-      user: UserType
+      user: {
+        type: UserType,
+        args: {
+          id: { type: GraphQLString }
+        },
+        resolve: (root, args) => dbService
+          .select()
+          .from('users')
+          .where({
+            'user_id': args.id
+          })
+      }
     })
   }),
   mutation: new GraphQLObjectType({
-    name: 'RootMutation',
+    name: 'Mutations',
     description: 'Mutations to the root level',
     fields: () => ({
-      newUser: newUserType
+      newUser: UserInputType
     })
   })
 })
