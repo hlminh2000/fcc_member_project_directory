@@ -1,2 +1,3 @@
 ENV_CONFIG.json
 node_modules
+FIREBASE_KEY.json

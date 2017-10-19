@@ -4,22 +4,28 @@ const {
   GraphQLObjectType,
   GraphQLInputObjectType,
   GraphQLString,
-} = require('graphql')
-express = require('express')
-dbService = require('../../db_service/index.js')
-UserType = require('../Queries/user.js')
+} = require('graphql'),
+{
+  createUserWithEmailAndPassword
+} = require('../../firebase_service/firebaseService.js'),
+  express = require('express'),
+  dbService = require('../../db_service/index.js'),
+  UserType = require('../Queries/user.js')
 
 const UserInputType = {
   type: UserType,
   description: 'Adds a new user and returns the user that was added',
   args: {
-    id:       { type: GraphQLString },
     username: { type: GraphQLString },
     email:    { type: GraphQLString },
+    password: { type: GraphQLString },
   },
-  resolve: (root, args) => dbService()
+  resolve: (root, args) => createUserWithEmailAndPassword(
+    args.email,
+    args.password
+  ).then( user => dbService()
     .insert({
-      user_id : args.id,
+      user_id : user.uid,
       username: args.username,
       email   : args.email,
     })
@@ -28,9 +34,10 @@ const UserInputType = {
       .select()
       .from('users')
       .where({
-        'user_id': args.id
+        'user_id': user.uid
       })
     )
+  )
 }
 
 module.exports = UserInputType
