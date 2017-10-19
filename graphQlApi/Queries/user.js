@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
     created_time: {
       type : GraphQLString,
       args : {},
-      resolve : (user, args) => user[0].created_time
+      resolve : (user, args) => user[0].create_time
     }
   }),
 })
