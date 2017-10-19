@@ -6,35 +6,10 @@ const {
   GraphQLString,
   buildSchema
 } = require('graphql')
-express = require('express')
-dbService = require('../db_service/index.js')
-UserType = require('./models/user.js')
-
-console.log(UserType);
-
-const UserInputType = {
-  type: UserType,
-  description: 'Adds a new user and returns the user that was added',
-  args: {
-    id:       { type: GraphQLString },
-    username: { type: GraphQLString },
-    email:    { type: GraphQLString },
-  },
-  resolve: (root, args) => dbService()
-    .insert({
-      user_id : args.id,
-      username: args.username,
-      email   : args.email,
-    })
-    .into('users')
-    .then(e => dbService()
-      .select()
-      .from('users')
-      .where({
-        'user_id': args.id
-      })
-    )
-}
+  express = require('express')
+  dbService = require('../db_service/index.js')
+  UserType = require('./Queries/user.js')
+  UserInputType = require('./Mutations/UserInput.js')
 
 const ApiRoot = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -57,7 +32,7 @@ const ApiRoot = new GraphQLSchema({
   }),
   mutation: new GraphQLObjectType({
     name: 'Mutations',
-    description: 'Mutations to the root level',
+    description: 'Root Level Mutations',
     fields: () => ({
       newUser: UserInputType
     })
