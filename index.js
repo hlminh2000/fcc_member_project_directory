@@ -5,16 +5,6 @@ const express = require('express')
       graphqlHTTP = require('express-graphql')
       cors = require('cors')
 
-// app.get('/users', function (req, res) {
-//   knex
-//     .select()
-//     .from('users')
-//     .then(result => {
-//       console.log(result);
-//       res.send(result)
-//     })
-// })
-
 const corsOptions = {
     origin(origin, callback) {
         callback(null, true);
@@ -39,5 +29,6 @@ app.use('/api',
 )
 
 app.listen(3000, function () {
+  console.log({});
   console.log('Example app listening on port 3000!')
 })
